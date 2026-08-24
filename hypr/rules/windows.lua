@@ -65,3 +65,17 @@ hl.window_rule({
 
     tile = true,
 })
+
+
+----------------------------
+---- WAYPAPER  -------------
+----------------------------
+
+hl.window_rule({
+    name = "waypaper-floating",
+    match = {
+        class = "^waypaper$",
+    },
+
+    float = true,
+})

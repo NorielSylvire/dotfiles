@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+for i in {1..10}; do
+    CURRENT=$(hyprctl activeworkspace -j | jq -r '.id')
+
+    if [[ "$CURRENT" == "$i" ]]; then
+        CLASS="active"
+        ICON=""
+    elif hyprctl workspaces -j | jq -e ".[] | select(.id == $i)" >/dev/null; then
+        CLASS="occupied"
+        ICON=""
+    else
+        CLASS="empty"
+        ICON=""
+    fi
+
+    printf '{"text":"%s","class":"%s","tooltip":"Workspace %s"}\n' \
+        "$ICON" "$CLASS" "$i"
+done

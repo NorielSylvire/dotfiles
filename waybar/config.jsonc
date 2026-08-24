@@ -1,0 +1,161 @@
+[
+{
+    "layer": "top",
+    "position": "top",
+    "height": 42,
+    "margin": "8 10 0 10",
+
+    "output": [
+        "DP-2"
+    ],
+
+	"modules-left": [
+		"custom/start",
+	    "hyprland/workspaces"
+	],
+
+    "modules-center": [],
+
+	"modules-right": [
+		"bluetooth",
+		"network",
+		"clock"
+	],
+
+    // ─────────────────────────────
+    // APPLICATION LAUNCHER
+    // ─────────────────────────────
+
+    "custom/start": {
+        "format": "",
+        "tooltip": "Applications",
+        "on-click": "hyprlauncher",
+        "on-click-right": "hyprlauncher",
+        "interval": 0
+    },
+
+	// ─────────────────────────────
+	// WORKSPACES
+	// ─────────────────────────────
+
+	"hyprland/workspaces": {
+	    "format": "{icon}",
+
+	    "format-icons": {
+	        "active": "",
+	        "default": "",
+	        "persistent": "",
+	        "urgent": ""
+		},
+
+	    "persistent-workspaces": {
+	        "DP-2": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	    },
+	
+	    "sort-by-number": true,
+	
+	    "disable-scroll": false,
+	    "all-outputs": false,
+
+	    "on-click": "activate",
+
+	    "on-scroll-up": "~/.config/waybar/scripts/workspace-next",
+	    "on-scroll-down": "~/.config/waybar/scripts/workspace-prev",
+
+	    "tooltip": true,
+	    "tooltip-format": "Workspace {name}"
+	},
+
+	// ─────────────────────────────
+    // BLUETOOTH
+    // ─────────────────────────────
+
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "",
+        "format-off": "",
+        "format-on": "",
+
+        "tooltip": true,
+        "tooltip-format": "Bluetooth: {status}\n{num_connections} device(s) connected",
+
+        "on-click": "blueman-manager"
+    },
+
+    // ─────────────────────────────
+    // NETWORK
+    // ─────────────────────────────
+
+    "network": {
+        "format": "",
+        "format-wifi": "",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰤭",
+
+        "tooltip": true,
+        "tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%\n{ipaddr}",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+        "tooltip-format-disconnected": "No network connection"
+    },
+
+    // ─────────────────────────────
+    // CLOCK
+    // ─────────────────────────────
+
+    "clock": {
+        "format": "{:%a %H:%M}",
+        "tooltip": true,
+        "tooltip-format": "{:%A, %d %B %Y}"
+    }
+},
+{
+	"layer": "top",
+    "position": "top",
+    "height": 42,
+    "margin": "8 10 0 10",
+
+	"output": [
+	    "DP-1"
+	],
+
+	"modules-left": [
+	    "hyprland/workspaces"
+	],
+
+    "modules-center": [],
+
+	"modules-right": [],
+
+	// ─────────────────────────────
+	// WORKSPACES
+	// ─────────────────────────────
+	
+	"hyprland/workspaces": {
+	    "format": "{icon}",
+
+	    "format-icons": {
+	        "active": "",
+	        "default": "",
+	        "persistent": "",
+	        "urgent": ""
+		},
+
+	    "persistent-workspaces": {
+	        "DP-1": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+	    },
+	
+	    "sort-by-number": true,
+	
+	    "disable-scroll": false,
+	    "all-outputs": false,
+
+	    "on-click": "activate",
+
+	    "on-scroll-up": "~/.config/waybar/scripts/workspace-next",
+	    "on-scroll-down": "~/.config/waybar/scripts/workspace-prev",
+
+	    "tooltip": true,
+	    "tooltip-format": "Workspace {name}"
+	}
+}
+]

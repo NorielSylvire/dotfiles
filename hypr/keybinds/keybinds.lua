@@ -289,3 +289,129 @@ hl.bind(
     "ALT + SHIFT + Print",
     hl.dsp.exec_cmd(screenshot .. " copy-screen")
 )
+
+---------------------
+---- WALLPAPER ----
+--------------------
+
+------------------------
+---- RANDOM WALLPAPER --
+------------------------
+
+-- All monitors
+hl.bind(
+    mainMod .. " + SHIFT + W",
+    hl.dsp.exec_cmd("random-wallpaper")
+)
+
+-- DP-1
+hl.bind(
+    mainMod .. " + SHIFT + 1 + W",
+    hl.dsp.exec_cmd("random-wallpaper DP-1")
+)
+
+-- DP-2
+hl.bind(
+    mainMod .. " + SHIFT + 2 + W",
+    hl.dsp.exec_cmd("random-wallpaper DP-2")
+)
+
+----------------------
+---- RANDOM STATIC ---
+----------------------
+
+-- All monitors
+hl.bind(
+    mainMod .. " + CTRL + W",
+    hl.dsp.exec_cmd("random-static")
+)
+
+-- DP-1
+hl.bind(
+    mainMod .. " + CTRL + 1 + W",
+    hl.dsp.exec_cmd("random-static DP-1")
+)
+
+-- DP-2
+hl.bind(
+    mainMod .. " + CTRL + 2 + W",
+    hl.dsp.exec_cmd("random-static DP-2")
+)
+
+-------------------------
+---- RANDOM ANIMATED ----
+-------------------------
+
+-- All monitors
+hl.bind(
+    mainMod .. " + ALT + W",
+    hl.dsp.exec_cmd("random-animated")
+)
+
+-- DP-1
+hl.bind(
+    mainMod .. " + ALT + 1 + W",
+    hl.dsp.exec_cmd("random-animated DP-1")
+)
+
+-- DP-2
+hl.bind(
+    mainMod .. " + ALT + 2 + W",
+    hl.dsp.exec_cmd("random-animated DP-2")
+)
+
+---------------------
+---- NEXT WALLPAPER --
+---------------------
+
+-- All monitors
+hl.bind(
+    mainMod .. " + N",
+    hl.dsp.exec_cmd("next-wallpaper")
+)
+
+-- DP-1
+hl.bind(
+    mainMod .. " + N + 1",
+    hl.dsp.exec_cmd("next-wallpaper DP-1")
+)
+
+-- DP-2
+hl.bind(
+    mainMod .. " + N + 2",
+    hl.dsp.exec_cmd("next-wallpaper DP-2")
+)
+
+---------------------
+---- WAYPAPER GUI ---
+---------------------
+
+-- All monitors
+hl.bind(
+    mainMod .. " + W",
+    hl.dsp.exec_cmd("waypaper")
+)
+
+---------------------
+--- RECORD SCREEN ---
+---------------------
+
+hl.bind(
+	mainMod .. " + SHIFT + R",
+	hl.dsp.exec_cmd("record screen")
+)
+
+hl.bind(
+	mainMod .. " + SHIFT + R + 1",
+	hl.dsp.exec_cmd("record dp1")
+)
+
+hl.bind(
+	mainMod .. " + SHIFT + R + 2",
+	hl.dsp.exec_cmd("record dp2")
+)
+
+hl.bind(
+	mainMod .. " + SHIFT + R + A",
+	hl.dsp.exec_cmd("record area")
+)

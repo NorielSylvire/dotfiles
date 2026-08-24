@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+WORKSPACES=10
+
+while true; do
+    CURRENT=$(hyprctl activeworkspace -j | jq -r '.id')
+
+    USED=$(hyprctl workspaces -j | jq -r '.[].id')
+
+    output=""
+
+    for i in $(seq 1 "$WORKSPACES"); do
+        if [[ "$i" == "$CURRENT" ]]; then
+            output+="● "
+        elif echo "$USED" | grep -qx "$i"; then
+            output+="● "
+        else
+            output+="○ "
+        fi
+    done
+
+    printf '%s\n' "$output"
+
+    sleep 0.2
+done
