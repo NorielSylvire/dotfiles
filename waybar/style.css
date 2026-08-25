@@ -1,6 +1,10 @@
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL
+   ═══════════════════════════════════════════════════════════════ */
+
 * {
-    font-family: "Iosevka", "Symbols Nerd Font", sans-serif;
-    font-size: 14px;
+    font-family: "GohuFont14 Nerd Font Mono", "Symbols Nerd Font", sans-serif;
+    font-size: 17px;
     font-weight: 500;
 }
 
@@ -9,30 +13,36 @@ window#waybar {
     color: #ffffff;
 }
 
-/* ─────────────────────────────
+
+/* ═══════════════════════════════════════════════════════════════
    MAIN BAR
-   ───────────────────────────── */
+   ═══════════════════════════════════════════════════════════════ */
 
 #waybar > box {
-    background: rgba(20, 20, 25, 0.92);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(16, 16, 20, 0.94);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 14px;
 
-    padding: 4px 6px;
+    padding: 4px 7px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
-/* ─────────────────────────────
+
+/* ═══════════════════════════════════════════════════════════════
    START BUTTON
-   ───────────────────────────── */
+   ═══════════════════════════════════════════════════════════════ */
 
 #custom-start {
+    color: #d40000;
+
     font-size: 28px;
     font-weight: bold;
 
-    min-width: 48px;
-
     margin-right: 6px;
-    padding: 0 8px;
+    padding: 0 18px;
 
     border-radius: 10px;
 
@@ -42,26 +52,29 @@ window#waybar {
 }
 
 #custom-start:hover {
-    background: rgba(255, 255, 255, 0.10);
+    color: #ff1a1a;
+
+    background: rgba(212, 0, 0, 0.12);
 }
 
-/* ─────────────────────────────
+
+/* ═══════════════════════════════════════════════════════════════
    WORKSPACES
-   ───────────────────────────── */
+   ═══════════════════════════════════════════════════════════════ */
 
 #workspaces {
-    margin-left: 10px;
-    padding: 0 6px;
+    margin-left: 6px;
+    padding: 0 5px;
 }
 
 #workspaces button {
     padding: 0 8px;
     margin: 4px 2px;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
     background: transparent;
-    color: #777777;
+    color: #55555d;
 
     transition:
         background 150ms ease,
@@ -69,58 +82,198 @@ window#waybar {
         padding 150ms ease;
 }
 
-/* Empty workspace */
-
 #workspaces button.empty {
-    color: #555555;
+    color: #4d4d55;
 }
-
-/* Occupied workspace */
 
 #workspaces button:not(.empty) {
-    color: #aaaaaa;
+    color: #85858e;
 }
-
-/* Active workspace */
 
 #workspaces button.active {
     color: #ffffff;
 
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(212, 0, 0, 0.20);
+
+    border: 1px solid rgba(212, 0, 0, 0.30);
 
     padding-left: 12px;
     padding-right: 12px;
-}
 
-/* Hover */
+    box-shadow:
+        0 0 12px rgba(212, 0, 0, 0.10);
+}
 
 #workspaces button:hover {
     color: #ffffff;
 
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.07);
 }
-
-/* Urgent */
 
 #workspaces button.urgent {
-    color: #ff5555;
+    color: #ff2222;
+
+    background: rgba(255, 0, 0, 0.12);
 }
 
-/* ─────────────────────────────
-   BLUETOOTH
-   ───────────────────────────── */
 
-#bluetooth {
-    color: #666666;
+/* ═══════════════════════════════════════════════════════════════
+   SYSTEM INFORMATION
+   ═══════════════════════════════════════════════════════════════ */
 
-    margin-left: 4px;
-    padding: 6px 8px;
+/*
+   CPU / RAM / DISK use a subtle neutral background.
+   Temperatures use the red accent because they're more important
+   status indicators.
+*/
 
-    border-radius: 10px;
+#cpu,
+#memory,
+#disk {
+    color: #a6a6ad;
+
+    margin-left: 3px;
+    padding: 6px 9px;
+
+    min-width: 58px;
+
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.045);
 
     transition:
         color 150ms ease,
         background 150ms ease;
+}
+
+#cpu:hover,
+#memory:hover,
+#disk:hover {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.085);
+}
+
+#cpu:hover,
+#memory:hover,
+#disk:hover {
+    color: #ff3333;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CPU TEMPERATURE
+   ═══════════════════════════════════════════════════════════════ */
+
+#custom-cpu-temp {
+    color: #9a9aa2;
+
+    margin-left: 3px;
+    padding: 6px 9px;
+
+    border-radius: 9px;
+
+    background: rgba(212, 0, 0, 0.055);
+
+    transition:
+        color 150ms ease,
+        background 150ms ease,
+        text-shadow 150ms ease;
+}
+
+#custom-cpu-temp:hover {
+    color: #ff3333;
+
+    background: rgba(212, 0, 0, 0.13);
+
+    text-shadow:
+        0 0 8px rgba(255, 0, 0, 0.25);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   GPU
+   ═══════════════════════════════════════════════════════════════ */
+
+#custom-gpu {
+    color: #9a9aa2;
+
+    margin-left: 3px;
+    padding: 6px 9px;
+
+    border-radius: 9px;
+
+    background: rgba(212, 0, 0, 0.055);
+
+    transition:
+        color 150ms ease,
+        background 150ms ease,
+        text-shadow 150ms ease;
+}
+
+#custom-gpu:hover {
+    color: #ff3333;
+
+    background: rgba(212, 0, 0, 0.13);
+
+    text-shadow:
+        0 0 8px rgba(255, 0, 0, 0.25);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   AUDIO
+   ═══════════════════════════════════════════════════════════════ */
+
+#custom-audio {
+    color: #a6a6ad;
+
+    margin-left: 5px;
+    padding: 6px 10px;
+
+    min-width: 60px;
+
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    transition:
+        color 150ms ease,
+        background 150ms ease;
+}
+
+#custom-audio:hover {
+    color: #ff3333;
+
+    background: rgba(212, 0, 0, 0.12);
+}
+
+
+/* Muted */
+
+#custom-audio.muted {
+    color: #55555d;
+
+    background: rgba(255, 255, 255, 0.025);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   BLUETOOTH
+   ═══════════════════════════════════════════════════════════════ */
+
+#bluetooth {
+    color: #5d5d65;
+
+    margin-left: 4px;
+    padding: 6px 9px;
+
+    border-radius: 9px;
+
+    transition:
+        color 150ms ease,
+        background 150ms ease,
+        text-shadow 150ms ease;
 }
 
 #bluetooth.on {
@@ -129,78 +282,232 @@ window#waybar {
 
 #bluetooth.connected {
     color: #ff0000;
+
+    text-shadow:
+        0 0 8px rgba(255, 0, 0, 0.25);
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #55555d;
 }
 
 #bluetooth:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(212, 0, 0, 0.10);
 }
 
 
-/* ─────────────────────────────
+/* ═══════════════════════════════════════════════════════════════
    NETWORK
-   ───────────────────────────── */
+   ═══════════════════════════════════════════════════════════════ */
 
 #network {
-    color: #666666;
+    color: #5d5d65;
 
     margin-left: 2px;
-    padding: 6px 8px;
+    padding: 6px 9px;
 
+    border-radius: 9px;
+
+    transition:
+        color 150ms ease,
+        background 150ms ease,
+        text-shadow 150ms ease;
+}
+
+#network.wifi,
+#network.ethernet {
+    color: #ff0000;
+
+    text-shadow:
+        0 0 7px rgba(255, 0, 0, 0.18);
+}
+
+#network.disconnected {
+    color: #55555d;
+}
+
+#network:hover {
+    background: rgba(212, 0, 0, 0.10);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SYSTEM TRAY
+   ═══════════════════════════════════════════════════════════════ */
+
+#tray {
+    margin-left: 5px;
+    padding: 0 5px;
+
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    transition:
+        background 150ms ease;
+}
+
+#tray:hover {
+    background: rgba(255, 255, 255, 0.075);
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#tray menu {
+    background: rgba(13, 13, 17, 0.97);
+
+    border: 1px solid rgba(212, 0, 0, 0.25);
     border-radius: 10px;
+}
+
+#tray menuitem:hover {
+    background: rgba(212, 0, 0, 0.15);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   UPTIME
+   ═══════════════════════════════════════════════════════════════ */
+
+#custom-uptime {
+    color: #777780;
+
+    margin-left: 4px;
+    padding: 6px 9px;
+
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.035);
 
     transition:
         color 150ms ease,
         background 150ms ease;
 }
 
-#network.wifi,
-#network.ethernet {
-    color: #ff0000;
-}
+#custom-uptime:hover {
+    color: #d0d0d5;
 
-#network.disconnected {
-    color: #666666;
-}
-
-#network:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.07);
 }
 
 
-/* ─────────────────────────────
+/* ═══════════════════════════════════════════════════════════════
    CLOCK
-   ───────────────────────────── */
+   ═══════════════════════════════════════════════════════════════ */
 
 #clock {
+    color: #eeeeee;
+
     font-size: 14px;
     font-weight: 600;
 
-    margin-left: 4px;
+    margin-left: 5px;
     padding: 6px 13px;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.065);
 
     transition:
+        color 150ms ease,
         background 150ms ease;
 }
 
 #clock:hover {
-    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+
+    background: rgba(212, 0, 0, 0.12);
 }
 
-/* ─────────────────────────────
-   TOOLTIP
-   ───────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════
+   MUSIC PLAYER
+   ═══════════════════════════════════════════════════════════════ */
+
+#custom-music-prev,
+#custom-music-play,
+#custom-music-next {
+    color: #8a8a92;
+
+    margin: 0;
+    padding: 6px 9px;
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    transition:
+        color 150ms ease,
+        background 150ms ease;
+}
+
+#custom-music-prev:hover,
+#custom-music-play:hover,
+#custom-music-next:hover {
+    color: #ff0000;
+
+    background: rgba(212, 0, 0, 0.12);
+}
+
+#custom-music-play {
+    color: #eeeeee;
+
+    padding-left: 11px;
+    padding-right: 11px;
+
+    background: rgba(212, 0, 0, 0.10);
+}
+
+#custom-music-play:hover {
+    color: #ffffff;
+
+    background: rgba(212, 0, 0, 0.22);
+
+    text-shadow:
+        0 0 8px rgba(255, 0, 0, 0.30);
+}
+
+#custom-music-title {
+    color: #b8b8c0;
+
+    margin-left: 5px;
+    padding: 6px 12px;
+
+    min-width: 120px;
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    transition:
+        color 150ms ease,
+        background 150ms ease;
+}
+
+#custom-music-title:hover {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.075);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   TOOLTIPS
+   ═══════════════════════════════════════════════════════════════ */
 
 tooltip {
-    background: rgba(20, 20, 25, 0.96);
+    background: rgba(13, 13, 17, 0.97);
 
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(212, 0, 0, 0.25);
     border-radius: 10px;
 
-    padding: 8px 12px;
+    padding: 9px 13px;
 
-    color: #ffffff;
+    color: #eeeeee;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.45);
 }

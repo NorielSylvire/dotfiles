@@ -79,3 +79,41 @@ hl.window_rule({
 
     float = true,
 })
+
+----------------------------
+---- BLUEMAN  -------------
+----------------------------
+
+hl.window_rule({
+	match = {
+		class = "blueman-manager",
+	},
+
+	float = true,
+
+	size = "420 500",
+
+	move = {
+		"monitor_w - window_w - 10",
+		"58",
+	},
+})
+
+----------------------------
+---- VOLUME MIXER ---------
+----------------------------
+
+hl.window_rule({
+    match = {
+        class = "org.pulseaudio.pavucontrol",
+    },
+
+    float = true,
+
+    size = "520 500",
+
+    move = {
+        "monitor_w - window_w - 10",
+        "58",
+    },
+})

@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+WINDOW_CLASS="blueman-manager"
+MARGIN=10
+TOP_OFFSET=58
+
+blueman-manager >/dev/null 2>&1 &
+
+# Wait for Blueman to appear
+for _ in {1..50}; do
+    WINDOW=$(hyprctl clients -j | jq -r \
+        --arg class "$WINDOW_CLASS" \
+        '.[] | select(.class == $class) | .address' |
+        head -n1)
+
+    [[ -n "$WINDOW" ]] && break
+
+    sleep 0.1
+done
+
+[[ -z "$WINDOW" ]] && exit 1
+
+# Find Blueman's monitor
+MONITOR=$(hyprctl clients -j | jq -r \
+    --arg address "$WINDOW" \
+    '.[] | select(.address == $address) | .monitor' |
+    head -n1)
+
+[[ -z "$MONITOR" ]] && exit 1
+
+# Monitor geometry
+read -r MX MY MW MH <<< "$(
+    hyprctl monitors -j | jq -r \
+        --arg monitor "$MONITOR" \
+        '.[] |
+         select(.name == $monitor) |
+         "\(.x) \(.y) \(.width) \(.height)"'
+)"
+
+[[ -z "$MW" ]] && exit 1
+
+# Window geometry
+read -r WW WH <<< "$(
+    hyprctl clients -j | jq -r \
+        --arg address "$WINDOW" \
+        '.[] |
+         select(.address == $address) |
+         "\(.size[0]) \(.size[1])"'
+)"
+
+[[ -z "$WW" ]] && exit 1
+
+# Calculate top-right position
+X=$((MX + MW - WW - MARGIN))
+Y=$((MY + TOP_OFFSET))
+
+echo "Blueman: $WINDOW"
+echo "Monitor: $MONITOR"
+echo "Monitor: ${MX},${MY} ${MW}x${MH}"
+echo "Window: ${WW}x${WH}"
+echo "Target: ${X},${Y}"
+
+# Make Blueman active
+hyprctl dispatch "focuswindow address:$WINDOW"
+
+sleep 0.1
+
+# Move active window
+hyprctl dispatch "hl.dsp.window.move({ x = $X y = $Y })"

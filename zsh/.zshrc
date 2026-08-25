@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # DELETE THIS SOON
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.config/hypr/scripts/:$HOME/.config/waybar/scripts/:$HOME/dotfiles/scripts/:$PATH"
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

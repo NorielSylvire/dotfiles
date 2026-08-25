@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+SOCKET="/tmp/waybar-mpv.sock"
+MUSIC_DIR="$HOME/Music"
+
+case "$1" in
+
+    start)
+        if ! pgrep -f "mpv.*$SOCKET" >/dev/null; then
+            mpv \
+                --idle=yes \
+                --no-video \
+                --shuffle \
+                --loop-playlist=inf \
+                --input-ipc-server="$SOCKET" \
+                "$MUSIC_DIR" >/dev/null 2>&1 &
+        fi
+        ;;
+
+    play)
+        "$0" start
+
+        if [[ -S "$SOCKET" ]]; then
+            printf '%s\n' \
+                '{ "command": ["cycle", "pause"] }' |
+                socat - "$SOCKET"
+        fi
+        ;;
+
+	next)
+		"$0" start
+
+		printf '%s\n' \
+		    '{ "command": ["playlist-next"] }' |
+		    socat - "$SOCKET"
+
+		pkill -RTMIN+8 waybar
+    ;;
+
+	prev)
+	    "$0" start
+
+		printf '%s\n' \
+		    '{ "command": ["playlist-prev"] }' |
+		    socat - "$SOCKET"
+
+		pkill -RTMIN+8 waybar
+    ;;
+
+	 status)
+        if [[ ! -S "$SOCKET" ]]; then
+            echo "No music"
+            exit 0
+        fi
+
+        RESPONSE=$(
+            printf '%s\n' \
+                '{ "command": ["get_property", "playlist-pos"] }' \
+                '{ "command": ["get_property", "media-title"] }' |
+                socat - "$SOCKET" 2>/dev/null
+        )
+
+        POSITION=$(echo "$RESPONSE" | jq -r \
+            'select(.request.command[1] == "playlist-pos") | .data // empty')
+
+        TITLE=$(echo "$RESPONSE" | jq -r \
+            'select(.request.command[1] == "media-title") | .data // empty')
+
+        if [[ -z "$TITLE" ]]; then
+            echo "No music"
+        else
+            echo "$TITLE"
+        fi
+        ;;
+
+    *)
+        echo "Usage: $0 {start|play|next|prev|status}"
+        exit 1
+        ;;
+
+esac

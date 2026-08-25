@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+SOCKET="/tmp/waybar-mpv.sock"
+
+if [[ ! -S "$SOCKET" ]]; then
+    printf '{"text":"No music","class":"stopped"}\n'
+    exit 0
+fi
+
+TITLE=$(
+    printf '%s\n' \
+        '{ "command": ["get_property", "media-title"] }' |
+        socat - "$SOCKET" 2>/dev/null |
+        jq -r '.data // empty'
+)
+
+if [[ -z "$TITLE" ]]; then
+    printf '{"text":"No music","class":"stopped"}\n'
+    exit 0
+fi
+
+# Strip whitespace
+TITLE=$(printf '%s' "$TITLE" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+# Escape characters interpreted by GTK/Pango markup
+TITLE=$(printf '%s' "$TITLE" |
+    sed \
+        -e 's/&/\&amp;/g' \
+        -e 's/</\&lt;/g' \
+        -e 's/>/\&gt;/g' \
+        -e 's/"/\&quot;/g' \
+        -e "s/'/\&apos;/g")
+
+printf '{"text":"%s","class":"playing"}\n' "$TITLE"

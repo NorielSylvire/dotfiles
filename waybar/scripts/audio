@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+SINK="@DEFAULT_AUDIO_SINK@"
+
+VOLUME=$(wpctl get-volume "$SINK")
+LEVEL=$(printf '%s\n' "$VOLUME" | awk '{print $2}')
+MUTED=$(printf '%s\n' "$VOLUME" | grep -q '\[MUTED\]' && echo true || echo false)
+
+# Convert 0.00–1.00 to percentage
+PERCENT=$(awk "BEGIN {printf \"%d\", $LEVEL * 100}")
+
+if [[ "$MUTED" == "true" ]]; then
+    ICON=""
+    CLASS="muted"
+elif (( PERCENT == 0 )); then
+    ICON=""
+    CLASS="low"
+elif (( PERCENT < 50 )); then
+    ICON=""
+    CLASS="medium"
+else
+    ICON=""
+    CLASS="high"
+fi
+
+printf '{"text":"%s %d%%","class":"%s","tooltip":"Volume: %d%%\\nStatus: %s"}\n' \
+    "$ICON" \
+    "$PERCENT" \
+    "$CLASS" \
+    "$PERCENT" \
+    "$([[ "$MUTED" == "true" ]] && echo "Muted" || echo "Playing")"

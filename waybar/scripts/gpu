@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+DATA=$(nvidia-smi \
+    --query-gpu=utilization.gpu,temperature.gpu \
+    --format=csv,noheader,nounits 2>/dev/null)
+
+if [[ -z "$DATA" ]]; then
+    printf '{"text":"GPU N/A","class":"unavailable","tooltip":"GPU information unavailable"}\n'
+    exit 0
+fi
+
+USAGE=$(printf '%s' "$DATA" | awk -F', ' '{print $1}')
+TEMP=$(printf '%s' "$DATA" | awk -F', ' '{print $2}')
+
+printf '{"text":"󰢮 %s%%","class":"normal","tooltip":"GPU\\nUsage: %s%%\\nTemperature: %s°C"}\n' \
+    "$USAGE" \
+    "$USAGE" \
+    "$TEMP"

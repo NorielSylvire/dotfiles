@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+TEMP=$(sensors 2>/dev/null |
+    awk '/Package id 0:/ {
+        gsub(/[+°C]/, "", $4)
+        print $4
+        exit
+    }')
+
+if [[ -z "$TEMP" ]]; then
+    TEMP="N/A"
+fi
+
+printf '%s°C\n' "$TEMP"
