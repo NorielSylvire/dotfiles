@@ -415,3 +415,17 @@ hl.bind(
 	mainMod .. " + SHIFT + R + A",
 	hl.dsp.exec_cmd("record area")
 )
+
+----------------------
+---- ROFI KEYBINDS ---
+----------------------
+
+hl.bind(
+	mainMod .. " + D",
+	hl.dsp.exec_cmd("rofi -show drun")
+)
+
+hl.bind(
+	mainMod .. " + R",
+	hl.dsp.exec_cmd("rofi -show run")
+)

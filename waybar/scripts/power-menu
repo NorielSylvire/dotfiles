@@ -1,0 +1,52 @@
+#!/bin/bash
+
+confirm() {
+    choice=$(printf '%s\n' "Cancel" "Confirm" |
+        rofi -dmenu \
+            -i \
+            -p "$1" \
+            -mesg "$2")
+
+    [[ "$choice" == "Confirm" ]]
+}
+
+action=$(printf '%s\n' \
+    "󰌾  Lock" \
+    "󰤄  Suspend" \
+    "󰍃  Logout" \
+    "󰜉  Reboot" \
+    "󰐥  Shutdown" |
+    rofi -dmenu \
+        -i \
+        -p "Power" \
+        -mesg "System power options")
+
+case "$action" in
+    "󰌾  Lock")
+        hyprlock
+        ;;
+
+    "󰤄  Suspend")
+        if confirm "Suspend?" "The system will enter sleep mode."; then
+            systemctl suspend
+        fi
+        ;;
+
+    "󰍃  Logout")
+        if confirm "Logout?" "Your current Hyprland session will be terminated."; then
+            hyprctl dispatch exit
+        fi
+        ;;
+
+    "󰜉  Reboot")
+        if confirm "Reboot?" "All running applications will be closed."; then
+            systemctl reboot
+        fi
+        ;;
+
+    "󰐥  Shutdown")
+        if confirm "Shutdown?" "The computer will be powered off."; then
+            systemctl poweroff
+        fi
+        ;;
+esac

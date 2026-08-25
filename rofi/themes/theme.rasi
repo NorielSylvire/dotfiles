@@ -1,0 +1,249 @@
+/*
+ * ═══════════════════════════════════════════════════════════════
+ * ROFI — DARK RED CYBERPUNK
+ * Rofi 2.x
+ * ═══════════════════════════════════════════════════════════════
+ */
+
+* {
+    background-color: #0b0b0f;
+    text-color: #e8e8ec;
+
+    background-alt: #111116;
+    foreground-alt: #85858f;
+
+    red: #d40000;
+    red-bright: #ff1a1a;
+    red-dark: #720000;
+
+    border-color: #351010;
+
+    font: "GohuFont14 Nerd Font Mono 14";
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   WINDOW
+   ═══════════════════════════════════════════════════════════════ */
+
+window {
+    location: north west;
+
+    x-offset: 10px;
+    y-offset: 10px;
+
+    width: 560px;
+    height: 420px;
+
+    background-color: #0b0b0f;
+
+    border: 1px;
+    border-color: #3a1010;
+
+    border-radius: 14px;
+
+    children: [mainbox];
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN BOX
+   ═══════════════════════════════════════════════════════════════ */
+
+mainbox {
+    background-color: #0b0b0f;
+
+    padding: 20px;
+
+    spacing: 14px;
+
+    children: [inputbar, listview];
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SEARCH BAR
+   ═══════════════════════════════════════════════════════════════ */
+
+inputbar {
+    background-color: #0e0e13;
+
+    border: 1px;
+    border-color: #351010;
+
+    border-radius: 9px;
+
+    padding: 10px 14px;
+
+    spacing: 10px;
+
+    children: [prompt, entry];
+}
+
+
+prompt {
+    background-color: transparent;
+
+    text-color: #ff1a1a;
+
+    padding: 0 4px;
+}
+
+
+entry {
+    background-color: transparent;
+
+    text-color: #e8e8ec;
+
+    placeholder: "Search applications...";
+    placeholder-color: #66666f;
+
+    cursor: text;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   APPLICATION LIST
+   ═══════════════════════════════════════════════════════════════ */
+
+listview {
+    background-color: #0b0b0f;
+
+    columns: 1;
+    lines: 8;
+
+    cycle: true;
+    dynamic: true;
+
+    scrollbar: true;
+
+    spacing: 4px;
+
+    padding: 2px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   APPLICATION ENTRIES
+   ═══════════════════════════════════════════════════════════════ */
+
+element {
+    background-color: transparent;
+
+    text-color: #e8e8ec;
+
+    padding: 10px 12px;
+
+    spacing: 10px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    children: [element-icon, element-text];
+}
+
+
+element normal {
+    background-color: transparent;
+
+    text-color: #e8e8ec;
+}
+
+
+element alternate {
+    background-color: #0e0e13;
+
+    text-color: #e8e8ec;
+}
+
+
+element selected {
+    background-color: #3a0d0d;
+
+    text-color: #ffffff;
+
+    border: 1px;
+    border-color: #8f0000;
+}
+
+
+element selected.normal {
+    background-color: #3a0d0d;
+
+    text-color: #ffffff;
+}
+
+
+element selected.active {
+    background-color: #3a0d0d;
+
+    text-color: #ffffff;
+}
+
+
+element selected.urgent {
+    background-color: #720000;
+
+    text-color: #ffffff;
+}
+
+
+element alternate {
+    background-color: #0e0e13;
+    text-color: #e8e8ec;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   ICONS / TEXT
+   ═══════════════════════════════════════════════════════════════ */
+
+element-icon {
+    background-color: transparent;
+
+    size: 28px;
+
+    text-color: inherit;
+}
+
+
+element-text {
+    background-color: transparent;
+
+    text-color: inherit;
+
+    vertical-align: 0.5;
+
+    cursor: inherit;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════════ */
+
+scrollbar {
+    background-color: #111116;
+
+    handle-width: 4px;
+
+    handle-color: #720000;
+
+    border: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MESSAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+message {
+    background-color: #111116;
+
+    text-color: #85858f;
+
+    padding: 10px;
+
+    border-radius: 8px;
+}

@@ -32,15 +32,16 @@
 		"network",
 		"tray",
 		"custom/uptime",
-		"clock"
+		"clock",
+		"custom/power"
 	],
 
     // ─────────────────────────────
     // APPLICATION LAUNCHER
     // ─────────────────────────────
 
-    "custom/start": {
-        "format": "",
+	"custom/start": {
+		"format": "<span font_family='Symbols Nerd Font' font_size='22pt'></span>",
         "tooltip": true,
 		"tooltip-format": "Start menu",
         "on-click": "rofi -show drun",
@@ -80,9 +81,9 @@
 	    "tooltip-format": "Workspace {name}"
 	},
 
-// ─────────────────────────────
-// MUSIC PLAYER
-// ─────────────────────────────
+	// ─────────────────────────────
+	// MUSIC PLAYER
+	// ─────────────────────────────
 
 	"custom/music-prev": {
 	    "format": "󰒮",
@@ -259,7 +260,18 @@
         "format": "{:%a %H:%M}",
         "tooltip": true,
         "tooltip-format": "{:%A, %d %B %Y}"
-    }
+    },
+
+	// ─────────────────────────────
+	// POWER MENU
+	// ─────────────────────────────
+
+	"custom/power": {
+	    "format": "<span font_family='Symbols Nerd Font' font_size='20pt'></span>",
+	    "tooltip": true,
+	    "tooltip-format": "Power menu",
+	    "on-click": "~/.config/waybar/scripts/power-menu"
+	}
 },
 {
 	"layer": "top",
@@ -285,7 +297,7 @@
     // ─────────────────────────────
 
     "custom/start": {
-        "format": "",
+		"format": "<span font_family='Symbols Nerd Font' font_size='22pt'></span>",
         "tooltip": true,
 		"tooltip-format": "Start menu",
         "on-click": "rofi -show drun",

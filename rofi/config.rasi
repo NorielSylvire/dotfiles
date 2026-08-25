@@ -85,7 +85,7 @@ configuration {
 
 	/*---------- Misc setting ----------*/
 	terminal: "rofi-sensible-terminal";
-	font: "Mono 12";
+	font: "GohuFont14 Nerd Font Mono 14";
 	sort: false;
 	threads: 0;
 	click-to-exit: true;
@@ -183,3 +183,5 @@ configuration {
 	me-accept-entry: "MousePrimary";
 	me-accept-custom: "Control+MouseDPrimary";
 }
+
+@theme "~/.config/rofi/themes/theme.rasi"
