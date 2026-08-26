@@ -42,6 +42,22 @@ alias ll="ls -la"
 alias lr="/bin/ls -lRa"
 alias lf="/bin/ls -F"
 
+# Tree
+alias tree="tree -C"
+alias treel="tree -C -L 2"
+alias treela="tree -C -a -L 2"
+alias treelag="tree -C -a -L 2 --gitignore"
+
+# Eza
+alias ez="eza"
+alias ezgit="eza --git --icons"
+alias ezl="eza -l --icons"
+alias ezla="eza -la --icons"
+alias ezlr="eza -lRa --icons"
+alias ezt="eza -l --tree --icons --level=2"
+alias ezy="eza -lah --icons --git --group-directories-first"
+alias ezi="eza -lah --icons --git --git-ignore --group-directories-first"
+
 # Clear
 alias c="clear"
 alias cl="clear"

@@ -1,0 +1,363 @@
+/* ═══════════════════════════════════════════════════════════════
+   DARK RED CYBERPUNK — GTK3
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────
+   GLOBAL
+   ───────────────────────────────────────── */
+
+* {
+    -gtk-icon-style: symbolic;
+    outline-color: rgba(212, 0, 0, 0.45);
+    -gtk-outline-radius: 6px;
+}
+
+
+/* ─────────────────────────────────────────
+   WINDOWS
+   ───────────────────────────────────────── */
+
+window,
+.background {
+    background-color: #0d0d11;
+    color: #eeeeee;
+}
+
+
+/* ─────────────────────────────────────────
+   HEADER BARS
+   ───────────────────────────────────────── */
+
+headerbar {
+    min-height: 42px;
+
+    background: #101014;
+
+    border-bottom: 1px solid rgba(212, 0, 0, 0.20);
+
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+headerbar:backdrop {
+    background: #0d0d11;
+}
+
+headerbar .title {
+    color: #eeeeee;
+    font-weight: 600;
+}
+
+
+/* ─────────────────────────────────────────
+   BUTTONS
+   ───────────────────────────────────────── */
+
+button {
+    color: #c8c8ce;
+
+    background: #16161c;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 7px;
+
+    box-shadow: none;
+
+    transition:
+        background 150ms ease,
+        color 150ms ease,
+        border-color 150ms ease;
+}
+
+button:hover {
+    color: #ffffff;
+
+    background: #202027;
+
+    border-color: rgba(212, 0, 0, 0.35);
+}
+
+button:active,
+button:checked {
+    color: #ffffff;
+
+    background: rgba(212, 0, 0, 0.20);
+
+    border-color: rgba(212, 0, 0, 0.50);
+}
+
+button:disabled {
+    color: #55555d;
+    background: #111115;
+    border-color: rgba(255, 255, 255, 0.03);
+}
+
+
+/* ─────────────────────────────────────────
+   ENTRY / TEXT FIELDS
+   ───────────────────────────────────────── */
+
+entry {
+    color: #eeeeee;
+
+    background: #101014;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 7px;
+
+    box-shadow: inset 0 0 0 1px transparent;
+}
+
+entry:focus {
+    border-color: #d40000;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(212, 0, 0, 0.35),
+        0 0 8px rgba(212, 0, 0, 0.10);
+}
+
+entry selection {
+    background: #720000;
+    color: #ffffff;
+}
+
+
+/* ─────────────────────────────────────────
+   SELECTION
+   ───────────────────────────────────────── */
+
+selection {
+    background-color: #720000;
+    color: #ffffff;
+}
+
+
+/* ─────────────────────────────────────────
+   CHECKBOXES / RADIO BUTTONS
+   ───────────────────────────────────────── */
+
+checkbutton check,
+radiobutton radio {
+    color: #85858e;
+}
+
+checkbutton check:hover,
+radiobutton radio:hover {
+    color: #d40000;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked {
+    color: #ff0000;
+}
+
+
+/* ─────────────────────────────────────────
+   SWITCHES
+   ───────────────────────────────────────── */
+
+switch {
+    background: #292930;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 999px;
+}
+
+switch:checked {
+    background: #720000;
+
+    border-color: #d40000;
+}
+
+switch slider {
+    background: #a6a6ad;
+}
+
+switch:checked slider {
+    background: #eeeeee;
+}
+
+
+/* ─────────────────────────────────────────
+   SCALE / SLIDERS
+   ───────────────────────────────────────── */
+
+scale trough {
+    background: #292930;
+    border-radius: 999px;
+}
+
+scale highlight {
+    background: #d40000;
+    border-radius: 999px;
+}
+
+scale slider {
+    background: #eeeeee;
+
+    border: 1px solid #d40000;
+
+    box-shadow:
+        0 0 7px rgba(212, 0, 0, 0.30);
+}
+
+
+/* ─────────────────────────────────────────
+   PROGRESS BARS
+   ───────────────────────────────────────── */
+
+progressbar trough {
+    background: #16161c;
+    border-radius: 5px;
+}
+
+progressbar progress {
+    background: #d40000;
+    border-radius: 5px;
+}
+
+
+/* ─────────────────────────────────────────
+   LISTS
+   ───────────────────────────────────────── */
+
+view,
+treeview,
+list,
+row {
+    background: #0d0d11;
+    color: #c8c8ce;
+}
+
+row:hover {
+    background: rgba(255, 255, 255, 0.045);
+}
+
+row:selected,
+treeview.view:selected {
+    background: rgba(212, 0, 0, 0.20);
+    color: #ffffff;
+}
+
+
+/* ─────────────────────────────────────────
+   NOTEBOOK / TABS
+   ───────────────────────────────────────── */
+
+notebook tab {
+    color: #777780;
+
+    padding: 7px 12px;
+}
+
+notebook tab:hover {
+    color: #eeeeee;
+}
+
+notebook tab:checked {
+    color: #ffffff;
+
+    border-bottom: 2px solid #d40000;
+}
+
+
+/* ─────────────────────────────────────────
+   MENUS
+   ───────────────────────────────────────── */
+
+menu,
+.menu {
+    background: #0d0d11;
+
+    border: 1px solid rgba(212, 0, 0, 0.22);
+    border-radius: 8px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.45);
+}
+
+menuitem,
+.menuitem {
+    color: #c8c8ce;
+
+    padding: 7px 10px;
+}
+
+menuitem:hover,
+.menuitem:hover {
+    color: #ffffff;
+
+    background: rgba(212, 0, 0, 0.15);
+}
+
+
+/* ─────────────────────────────────────────
+   TOOLTIP
+   ───────────────────────────────────────── */
+
+tooltip {
+    background: #0d0d11;
+
+    border: 1px solid rgba(212, 0, 0, 0.25);
+    border-radius: 7px;
+
+    color: #eeeeee;
+}
+
+
+/* ─────────────────────────────────────────
+   SCROLLBARS
+   ───────────────────────────────────────── */
+
+scrollbar {
+    background: transparent;
+}
+
+scrollbar slider {
+    background: #292930;
+
+    border-radius: 999px;
+
+    min-width: 7px;
+    min-height: 7px;
+}
+
+scrollbar slider:hover {
+    background: #720000;
+}
+
+scrollbar slider:active {
+    background: #d40000;
+}
+
+
+/* ─────────────────────────────────────────
+   LINKS
+   ───────────────────────────────────────── */
+
+link {
+    color: #d40000;
+}
+
+link:hover {
+    color: #ff1a1a;
+}
+
+
+/* ─────────────────────────────────────────
+   SEPARATORS
+   ───────────────────────────────────────── */
+
+separator {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+
+/* ─────────────────────────────────────────
+   FOCUS
+   ───────────────────────────────────────── */
+
+*:focus {
+    outline-color: rgba(212, 0, 0, 0.45);
+}

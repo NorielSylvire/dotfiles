@@ -2,25 +2,23 @@
 ---- LOOK AND FEEL ----
 -----------------------
 
--- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
-
 hl.config({
     general = {
-        gaps_in  = 5,
-        gaps_out = 20,
+        gaps_in  = 6,
+        gaps_out = 12,
 
         border_size = 2,
 
         col = {
             active_border = {
                 colors = {
-                    "rgba(fc03f8ee)",
-                    "rgba(fc0303ee)",
+                    "rgba(e92f35ff)",
+                    "rgba(870f11ff)",
                 },
                 angle = 45,
             },
 
-            inactive_border = "rgba(470000aa)",
+            inactive_border = "rgba(3c3c3cff)",
         },
 
         resize_on_border = false,
@@ -30,24 +28,24 @@ hl.config({
     },
 
     decoration = {
-        rounding = 8,
+        rounding = 6,
         rounding_power = 2,
 
         active_opacity = 0.97,
-        inactive_opacity = 0.80,
+        inactive_opacity = 0.90,
 
         shadow = {
             enabled = true,
-            range = 4,
+            range = 6,
             render_power = 3,
-            color = 0xee1a1a1a,
+            color = "rgba(000000cc)",
         },
 
         blur = {
             enabled = true,
             size = 3,
             passes = 1,
-            vibrancy = 0.1696,
+            vibrancy = 0.10,
         },
     },
 
@@ -55,7 +53,6 @@ hl.config({
         enabled = true,
     },
 })
-
 
 ---------------------
 ---- ANIMATIONS ----

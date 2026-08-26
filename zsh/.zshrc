@@ -221,3 +221,4 @@ add-zsh-hook precmd rehash_precmd
 eval "$(starship init zsh)"
 
 
+[[ -o interactive ]] && neofetch

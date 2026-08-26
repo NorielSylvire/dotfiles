@@ -1,0 +1,14 @@
+[SddmGreeterTheme]
+Name=Archcraft
+Description=Dark red cyberpunk theme for SDDM greeter
+Version=1.0
+Theme-Id=cyberred
+Theme-API=2.0
+QtVersion=6
+Author=NorielSylvire
+License=GPL-3.0-or-later
+Type=sddm-theme
+Screenshot=preview.png
+MainScript=main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations

@@ -1,1 +1,97 @@
+# ────────────────────────────────────────
+# MAKO — CONFIGURATION FILE
+# ────────────────────────────────────────
+
 default-timeout=15000
+
+
+# ═══════════════════════════════════════════════════════════════
+# MAKO — CYBERPUNK RED
+# ═══════════════════════════════════════════════════════════════
+
+
+# ─────────────────────────────────────────
+# APPEARANCE
+# ─────────────────────────────────────────
+
+font=GohuFont 14 Nerd Font Mono 11
+
+background-color=#0d0d11ee
+text-color=#e8e8ec
+
+border-size=2
+border-color=#720000cc
+border-radius=12
+
+width=380
+height=120
+
+margin=10
+padding=12
+
+outer-margin=8
+
+
+# ─────────────────────────────────────────
+# ICONS
+# ─────────────────────────────────────────
+
+icons=1
+max-icon-size=48
+icon-location=left
+icon-border-radius=8
+
+
+# ─────────────────────────────────────────
+# PROGRESS
+# ─────────────────────────────────────────
+
+progress-color=over #d40000aa
+
+
+# ─────────────────────────────────────────
+# LAYOUT
+# ─────────────────────────────────────────
+
+anchor=top-right
+layer=overlay
+
+max-visible=5
+
+default-timeout=5000
+
+history=1
+
+format=<b>%s</b>\n%b
+
+
+# ─────────────────────────────────────────
+# CRITICAL
+# ─────────────────────────────────────────
+
+[urgency=critical]
+
+background-color=#180707f5
+text-color=#ffffff
+
+border-color=#ff0000
+
+border-size=2
+
+progress-color=over #ff0000cc
+
+default-timeout=0
+
+
+# ─────────────────────────────────────────
+# LOW PRIORITY
+# ─────────────────────────────────────────
+
+[urgency=low]
+
+background-color=#0d0d11dd
+text-color=#85858e
+
+border-color=#292930
+
+progress-color=over #55555d88
