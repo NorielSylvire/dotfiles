@@ -1,0 +1,8 @@
+@theme "~/.config/rofi/themes/theme.rasi"
+
+window {
+    location: north east;
+    anchor: east;
+    x-offset: 10px;
+    y-offset: 10px;
+}

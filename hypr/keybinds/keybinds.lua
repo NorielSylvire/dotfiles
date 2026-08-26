@@ -20,8 +20,8 @@ hl.bind(
 )
 
 hl.bind(
-    mainMod .. " + R",
-    hl.dsp.exec_cmd(programs.menu)
+	mainMod .. " + T",
+	hl.dsp.exec_cmd(programs.terminal .. " --class=kitty-floating")
 )
 
 
@@ -428,4 +428,13 @@ hl.bind(
 hl.bind(
 	mainMod .. " + R",
 	hl.dsp.exec_cmd("rofi -show run")
+)
+
+----------------------
+---- WINDOW SWITCHER -
+----------------------
+
+hl.bind(
+    mainMod .. " + TAB",
+    hl.dsp.exec_cmd("rofi -show window -theme ~/.config/rofi/themes/windows.rasi")
 )

@@ -17,6 +17,7 @@ action=$(printf '%s\n' \
     "󰜉  Reboot" \
     "󰐥  Shutdown" |
     rofi -dmenu \
+		-theme ~/.config/rofi/themes/power.rasi
         -i \
         -p "Power" \
         -mesg "System power options")

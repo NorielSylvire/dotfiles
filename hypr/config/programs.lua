@@ -4,8 +4,8 @@
 
 local programs = {
     terminal    = "kitty",
-    fileManager = "dolphin",
-    menu        = "hyprlauncher",
+    fileManager = "thunar",
+    menu        = "rofi -show drun",
 }
 
 -- Expose programs globally so other modules can use them.

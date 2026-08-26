@@ -117,3 +117,14 @@ hl.window_rule({
         "58",
     },
 })
+
+-----------------------------
+----- KITTY FLOATING --------
+-----------------------------
+
+hl.window_rule({
+    match = {
+        class = "kitty-floating",
+    },
+    float = true,
+})

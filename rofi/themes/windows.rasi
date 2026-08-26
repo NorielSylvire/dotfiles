@@ -1,0 +1,9 @@
+@theme "~/.config/rofi/themes/theme.rasi"
+
+window {
+    location: center;
+	anchor: center;
+
+	x-offset: 0px;
+	y-offset: 0px;
+}

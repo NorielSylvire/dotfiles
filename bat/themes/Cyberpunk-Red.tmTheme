@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+<plist version="1.0">
+<dict>
+    <key>name</key>
+    <string>Cyberpunk Red</string>
+
+<key>settings</key>
+<array>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- GLOBAL                                        -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>settings</key>
+        <dict>
+            <key>background</key>
+            <string>#0d0d11</string>
+            <key>foreground</key>
+            <string>#e8e8ec</string>
+            <key>caret</key>
+            <string>#ff1a1a</string>
+            <key>invisibles</key>
+            <string>#292930</string>
+            <key>lineHighlight</key>
+            <string>#16161b</string>
+            <key>selection</key>
+            <string>#3a1115</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- COMMENTS                                       -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Comment</string>
+        <key>scope</key>
+        <string>comment</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#55555d</string>
+            <key>fontStyle</key>
+            <string>italic</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- STRINGS                                        -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>String</string>
+        <key>scope</key>
+        <string>string</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#c7c7ce</string>
+        </dict>
+    </dict>
+
+    <dict>
+        <key>name</key>
+        <string>String Escape</string>
+        <key>scope</key>
+        <string>constant.character.escape</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#ff1a1a</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- NUMBERS / CONSTANTS                            -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Number</string>
+        <key>scope</key>
+        <string>constant.numeric</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#d40000</string>
+        </dict>
+    </dict>
+
+    <dict>
+        <key>name</key>
+        <string>Constants</string>
+        <key>scope</key>
+        <string>constant.language constant.other</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#ff1a1a</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- KEYWORDS                                       -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Keyword</string>
+        <key>scope</key>
+        <string>keyword</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#ff1a1a</string>
+            <key>fontStyle</key>
+            <string>bold</string>
+        </dict>
+    </dict>
+
+    <dict>
+        <key>name</key>
+        <string>Storage</string>
+        <key>scope</key>
+        <string>storage</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#d40000</string>
+            <key>fontStyle</key>
+            <string>bold</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- TYPES / CLASSES                                -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Type</string>
+        <key>scope</key>
+        <string>entity.name.type entity.name.class support.type</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#e8e8ec</string>
+            <key>fontStyle</key>
+            <string>bold</string>
+        </dict>
+    </dict>
+
+    <dict>
+        <key>name</key>
+        <string>Inherited Type</string>
+        <key>scope</key>
+        <string>entity.other.inherited-class</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#ff1a1a</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- FUNCTIONS                                      -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Function</string>
+        <key>scope</key>
+        <string>entity.name.function meta.function-call support.function</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#eeeeee</string>
+        </dict>
+    </dict>
+
+    <dict>
+        <key>name</key>
+        <string>Function Definition</string>
+        <key>scope</key>
+        <string>entity.name.function.definition</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#ffffff</string>
+            <key>fontStyle</key>
+            <string>bold</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- VARIABLES                                      -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Variable</string>
+        <key>scope</key>
+        <string>variable</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#b8b8c0</string>
+        </dict>
+    </dict>
+
+    <dict>
+        <key>name</key>
+        <string>Parameter</string>
+        <key>scope</key>
+        <string>variable.parameter</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#85858e</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- OPERATORS                                      -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Operator</string>
+        <key>scope</key>
+        <string>keyword.operator</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#ff1a1a</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PUNCTUATION                                    -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Punctuation</string>
+        <key>scope</key>
+        <string>punctuation</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#85858e</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- TAGS / MARKUP                                  -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Tag</string>
+        <key>scope</key>
+        <string>entity.name.tag</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#d40000</string>
+            <key>fontStyle</key>
+            <string>bold</string>
+        </dict>
+    </dict>
+
+    <dict>
+        <key>name</key>
+        <string>Attribute</string>
+        <key>scope</key>
+        <string>entity.other.attribute-name</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#ff1a1a</string>
+        </dict>
+    </dict>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- INVALID / ERRORS                               -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <dict>
+        <key>name</key>
+        <string>Invalid</string>
+        <key>scope</key>
+        <string>invalid</string>
+        <key>settings</key>
+        <dict>
+            <key>foreground</key>
+            <string>#ffffff</string>
+            <key>background</key>
+            <string>#720000</string>
+        </dict>
+    </dict>
+
+</array>
+
+<key>uuid</key>
+<string>cyberpunk-red</string>
+
+</dict>
+</plist>
+

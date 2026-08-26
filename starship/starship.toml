@@ -1,0 +1,403 @@
+# ═══════════════════════════════════════════════════════════════
+# STARSHIP — DARK RED CYBERPUNK
+# ═══════════════════════════════════════════════════════════════
+#
+# Designed for:
+#   • Python
+#   • POSIX C
+#   • Lua
+#   • GDScript / Godot
+#   • Git
+#
+# Philosophy:
+#   Useful information first.
+#   Red is an accent, not the entire screen.
+#   Empty modules disappear.
+#
+# ═══════════════════════════════════════════════════════════════
+
+
+# ───────────────────────────────────────────────────────────────
+# GLOBAL
+# ───────────────────────────────────────────────────────────────
+
+add_newline = true
+
+command_timeout = 1000
+scan_timeout = 30
+
+
+# ───────────────────────────────────────────────────────────────
+# FORMAT
+# ───────────────────────────────────────────────────────────────
+#
+# ╭─ ~/project 󰊢 main ⇡1 !2
+# │   3.13.7 .venv    5.4.6   C gcc 15.2
+# │ 󰔚 2s
+# ╰─ ❯
+#
+# Everything is conditional. If a project does not need a module,
+# that module simply disappears.
+#
+# ───────────────────────────────────────────────────────────────
+
+format = """
+[╭─](bold #720000)$directory$git_branch$git_status$fill$cmd_duration
+[│](bold #720000) $python$nodejs$lua$package$jobs
+[╰─](bold #720000) $character
+"""
+
+right_format = ""
+
+
+# ═══════════════════════════════════════════════════════════════
+# DIRECTORY
+# ═══════════════════════════════════════════════════════════════
+
+[directory]
+
+style = "bold #e8e8ec"
+
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+home_symbol = "~"
+
+truncation_length = 3
+
+truncate_to_repo = true
+
+read_only = " "
+
+read_only_style = "#720000"
+
+fish_style_pwd_dir_length = 0
+
+
+# ═══════════════════════════════════════════════════════════════
+# GIT
+# ═══════════════════════════════════════════════════════════════
+
+[git_branch]
+
+symbol = "󰊢 "
+
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+style = "bold #d40000"
+
+truncation_length = 24
+
+truncation_symbol = "…"
+
+
+[git_status]
+
+format = '([$all_status$ahead_behind]($style) )'
+
+style = "bold #ff1a1a"
+
+conflicted = "󰞇 "
+
+ahead = "⇡${count} "
+
+behind = "⇣${count} "
+
+diverged = "⇕ "
+
+untracked = "?${count} "
+
+stashed = "󰏗 "
+
+modified = "!${count} "
+
+staged = "+${count} "
+
+renamed = "»${count} "
+
+deleted = "✘${count} "
+
+up_to_date = ""
+
+ignore_submodules = true
+
+
+# ═══════════════════════════════════════════════════════════════
+# PYTHON
+# ═══════════════════════════════════════════════════════════════
+
+[python]
+
+symbol = " "
+
+format = "[$symbol$version]($style)[$virtualenv](#85858e) "
+
+style = "bold #d40000"
+
+version_format = "${major}.${minor}.${patch}"
+
+detect_extensions = [
+    "py",
+    "pyi"
+]
+
+detect_files = [
+    "pyproject.toml",
+    "requirements.txt",
+    "setup.py",
+    "setup.cfg",
+    "Pipfile",
+    "tox.ini"
+]
+
+detect_folders = [
+    ".venv",
+    "venv",
+    "env"
+]
+
+pyenv_version_name = true
+
+python_binary = [
+    "python",
+    "python3",
+    "python2"
+]
+
+# ═══════════════════════════════════════════════════════════════
+# NODE / JAVASCRIPT
+# ═══════════════════════════════════════════════════════════════
+
+[nodejs]
+
+symbol = " "
+
+format = "[$symbol$version]($style) "
+
+style = "bold #85858e"
+
+version_format = "${major}.${minor}.${patch}"
+
+detect_extensions = [
+    "js",
+    "mjs",
+    "cjs",
+    "ts",
+    "tsx"
+]
+
+detect_files = [
+    "package.json",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock"
+]
+
+
+# ═══════════════════════════════════════════════════════════════
+# LUA
+# ═══════════════════════════════════════════════════════════════
+
+[lua]
+
+symbol = " "
+
+format = "[$symbol$version]($style) "
+
+style = "bold #d40000"
+
+version_format = "${major}.${minor}.${patch}"
+
+detect_extensions = [
+    "lua"
+]
+
+detect_files = [
+    ".luacheckrc",
+    "lua.conf"
+]
+
+
+# ═══════════════════════════════════════════════════════════════
+# PACKAGE
+# ═══════════════════════════════════════════════════════════════
+
+[package]
+
+symbol = "󰏗 "
+
+format = "[$symbol$version]($style) "
+
+style = "#66666f"
+
+display_private = false
+
+
+# ═══════════════════════════════════════════════════════════════
+# C TOOLCHAIN
+# ═══════════════════════════════════════════════════════════════
+#
+# Starship has no dedicated C module, so use a custom module.
+#
+# It appears only when C source/header files or common C build
+# manifests are detected.
+#
+# The command reports the installed GCC version.
+#
+# ═══════════════════════════════════════════════════════════════
+
+[custom.c_toolchain]
+
+description = "C compiler information"
+
+command = "gcc --version | head -n 1 | sed 's/^gcc (.*) //; s/^gcc //'"
+
+when = "test -n \"$(find . -maxdepth 2 -type f \\( -name '*.c' -o -name '*.h' \\) -print -quit 2>/dev/null)\" || test -f Makefile || test -f CMakeLists.txt"
+
+symbol = "󰙱 "
+
+format = "[$symbol C gcc $output]($style) "
+
+style = "bold #85858e"
+
+shell = ["sh"]
+
+
+# ═══════════════════════════════════════════════════════════════
+# GODOT / GDSCRIPT
+# ═══════════════════════════════════════════════════════════════
+#
+# GDScript itself does not have a standalone version.
+# The useful environmental indicator is the Godot version.
+#
+# This appears in Godot projects containing project.godot or
+# GDScript source files.
+#
+# ═══════════════════════════════════════════════════════════════
+
+[custom.godot]
+
+description = "Godot / GDScript project"
+
+command = "godot --version 2>/dev/null | head -n 1"
+
+when = "test -f project.godot || test -n \"$(find . -maxdepth 2 -type f -name '*.gd' -print -quit 2>/dev/null)\""
+
+symbol = " "
+
+format = "[$symbol Godot $output]($style) "
+
+style = "bold #d40000"
+
+shell = ["sh"]
+
+
+# ═══════════════════════════════════════════════════════════════
+# COMMAND DURATION
+# ═══════════════════════════════════════════════════════════════
+
+[cmd_duration]
+
+min_time = 2000
+
+format = "[󰔚 $duration]($style)"
+
+style = "#55555d"
+
+show_milliseconds = false
+
+show_notifications = false
+
+
+# ═══════════════════════════════════════════════════════════════
+# BACKGROUND FILL
+# ═══════════════════════════════════════════════════════════════
+
+[fill]
+
+symbol = "·"
+
+style = "#292930"
+
+
+# ═══════════════════════════════════════════════════════════════
+# BACKGROUND JOBS
+# ═══════════════════════════════════════════════════════════════
+
+[jobs]
+
+symbol = "󰀠 "
+
+style = "#d40000"
+
+format = "[$symbol$number]($style) "
+
+number_threshold = 1
+
+
+# ═══════════════════════════════════════════════════════════════
+# COMMAND STATUS
+# ═══════════════════════════════════════════════════════════════
+#
+# Unlike the previous config, status is actually included in
+# the prompt format above.
+#
+# Successful commands produce nothing.
+# Failed commands produce a red error indicator + exit code.
+#
+# ═══════════════════════════════════════════════════════════════
+
+[status]
+
+disabled = false
+
+symbol = "✘ "
+
+success_symbol = ""
+
+format = "[$symbol$status]($style) "
+
+style = "bold #ff0000"
+
+recognize_signal_code = true
+
+map_symbol = true
+
+pipestatus = true
+
+
+# ═══════════════════════════════════════════════════════════════
+# PROMPT CHARACTER
+# ═══════════════════════════════════════════════════════════════
+
+[character]
+
+success_symbol = "[❯](bold #d40000)"
+
+error_symbol = "[❯](bold #ff0000)"
+
+vimcmd_symbol = "[❮](bold #720000)"
+
+vimcmd_replace_one_symbol = "[❮](bold #d40000)"
+
+vimcmd_replace_symbol = "[❮](bold #d40000)"
+
+vimcmd_visual_symbol = "[❮](bold #ff1a1a)"
+
+
+# ═══════════════════════════════════════════════════════════════
+# TIME
+# ═══════════════════════════════════════════════════════════════
+#
+# Deliberately disabled.
+# Waybar already provides the desktop clock.
+#
+# ═══════════════════════════════════════════════════════════════
+
+[time]
+
+disabled = true
+
+
+# ═══════════════════════════════════════════════════════════════
+# END
+# ═══════════════════════════════════════════════════════════════
