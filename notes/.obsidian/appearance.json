@@ -1,4 +1,8 @@
 {
-  "accentColor": "#d45cf5",
-  "theme": "obsidian"
+  "accentColor": "#f55c5c",
+  "theme": "obsidian",
+  "interfaceFontFamily": "GohuFont 14 Nerd Font Mono",
+  "textFontFamily": "GohuFont 14 Nerd Font Mono",
+  "monospaceFontFamily": "GohuFont 14 Nerd Font Mono",
+  "cssTheme": "Minimal Red"
 }

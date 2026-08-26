@@ -221,4 +221,10 @@ add-zsh-hook precmd rehash_precmd
 eval "$(starship init zsh)"
 
 
-[[ -o interactive ]] && neofetch
+if [[ -o interactive ]]; then
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
+        onefetch
+    else
+        neofetch
+    fi
+fi
