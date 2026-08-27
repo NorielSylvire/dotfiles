@@ -180,12 +180,12 @@ Screenshots use `~/.local/bin/screenshot` and are processed through **Satty**.
 
 # 🎥 Screen Recording
 
-| Keybind | Action |
-|---|---|
-| `Super + Shift + R` | Record all monitors |
-| `Super + Shift + R + 1` | Record `DP-1` |
-| `Super + Shift + R + 2` | Record `DP-2` |
-| `Super + Shift + R + A` | Record selected area |
+| Keybind             | Action               |
+| ------------------- | -------------------- |
+| `Super + Shift + R` | Record all monitors  |
+| `Super + Shift + T` | Record `DP-1`        |
+| `Super + Shift + Y` | Record `DP-2`        |
+| `Super + Shift + A` | Record selected area |
 
 ---
 

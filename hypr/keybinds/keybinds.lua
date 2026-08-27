@@ -402,17 +402,17 @@ hl.bind(
 )
 
 hl.bind(
-	mainMod .. " + SHIFT + R + 1",
+	mainMod .. " + SHIFT + T",
 	hl.dsp.exec_cmd("record dp1")
 )
 
 hl.bind(
-	mainMod .. " + SHIFT + R + 2",
+	mainMod .. " + SHIFT + Y",
 	hl.dsp.exec_cmd("record dp2")
 )
 
 hl.bind(
-	mainMod .. " + SHIFT + R + A",
+	mainMod .. " + SHIFT + A",
 	hl.dsp.exec_cmd("record area")
 )
 
