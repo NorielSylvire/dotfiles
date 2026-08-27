@@ -3,48 +3,178 @@
 set -euo pipefail
 
 RECORDING_DIR="$HOME/Videos/Recordings"
-TIMESTAMP="$(date '+%Y-%m-%d_%H-%M-%S')"
-OUTPUT="$RECORDING_DIR/${TIMESTAMP}.mkv"
+STATE_FILE="/tmp/wf-record-state"
 
 mkdir -p "$RECORDING_DIR"
 
-# If wf-recorder is already running, stop it.
-if pgrep -x wf-recorder >/dev/null; then
-    pkill -INT -x wf-recorder
 
-    notify-send "Screen recording" "Recording stopped"
+# --------------------------------------------------
+# STOP RECORDING
+# --------------------------------------------------
+
+if [[ -f "$STATE_FILE" ]]; then
+
+    # Load the paths belonging to the active recording.
+    # shellcheck disable=SC1090
+    source "$STATE_FILE"
+
+    echo "Stopping recording..."
+    echo "Video: $VIDEO_OUTPUT"
+    echo "Audio: $AUDIO_OUTPUT"
+    echo "Output: $OUTPUT"
+
+    # Stop video.
+    if pgrep -x wf-recorder >/dev/null; then
+        pkill -INT -x wf-recorder
+
+        while pgrep -x wf-recorder >/dev/null; do
+            sleep 0.1
+        done
+    fi
+
+    # Stop audio using its exact PID.
+    if [[ -n "${AUDIO_PID:-}" ]] && kill -0 "$AUDIO_PID" 2>/dev/null; then
+        kill -INT "$AUDIO_PID"
+
+        wait "$AUDIO_PID" 2>/dev/null || true
+    fi
+
+    sleep 0.5
+
+    # Verify files.
+    if [[ ! -f "$VIDEO_OUTPUT" ]]; then
+        notify-send \
+            "Recording error" \
+            "Video file was not created."
+
+        rm -f "$STATE_FILE"
+        exit 1
+    fi
+
+    if [[ ! -f "$AUDIO_OUTPUT" ]]; then
+        notify-send \
+            "Recording error" \
+            "Audio file was not created."
+
+        rm -f "$VIDEO_OUTPUT"
+        rm -f "$STATE_FILE"
+        exit 1
+    fi
+
+    # Mux video and audio.
+    if ffmpeg -y \
+        -i "$VIDEO_OUTPUT" \
+        -i "$AUDIO_OUTPUT" \
+        -c:v copy \
+        -c:a aac \
+        -b:a 192k \
+        -shortest \
+        "$OUTPUT"; then
+
+        # Remove temporary files.
+        rm -f "$VIDEO_OUTPUT"
+        rm -f "$AUDIO_OUTPUT"
+        rm -f "$STATE_FILE"
+
+        notify-send \
+            "Recording saved" \
+            "$OUTPUT"
+
+    else
+        notify-send \
+            "Recording error" \
+            "FFmpeg failed to mux the recording."
+
+        rm -f "$STATE_FILE"
+        exit 1
+    fi
+
     exit 0
 fi
 
-# Start recording.
+
+# --------------------------------------------------
+# START RECORDING
+# --------------------------------------------------
+
+TIMESTAMP="$(date '+%Y-%m-%d_%H-%M-%S')"
+
+VIDEO_OUTPUT="/tmp/record-${TIMESTAMP}.mkv"
+AUDIO_OUTPUT="/tmp/record-${TIMESTAMP}.wav"
+OUTPUT="$RECORDING_DIR/${TIMESTAMP}.mkv"
+
+# Your known-working PipeWire sink.
+AUDIO_TARGET="52"
+
+
+# Start audio recording.
+pw-record \
+    --target "$AUDIO_TARGET" \
+    "$AUDIO_OUTPUT" &
+
+AUDIO_PID=$!
+
+sleep 0.5
+
+if ! kill -0 "$AUDIO_PID" 2>/dev/null; then
+    notify-send \
+        "Recording error" \
+        "pw-record failed to start."
+
+    rm -f "$AUDIO_OUTPUT"
+    exit 1
+fi
+
+
+# Save recording state.
+cat > "$STATE_FILE" <<EOF
+VIDEO_OUTPUT='$VIDEO_OUTPUT'
+AUDIO_OUTPUT='$AUDIO_OUTPUT'
+OUTPUT='$OUTPUT'
+AUDIO_PID='$AUDIO_PID'
+EOF
+
+
+# Start video recording.
 case "${1:-screen}" in
+
     screen)
-        wf-recorder -a -f "$OUTPUT"
+        wf-recorder -f "$VIDEO_OUTPUT"
         ;;
 
     dp1)
-        wf-recorder -a -o DP-1 -f "$OUTPUT"
+        wf-recorder -o DP-1 -f "$VIDEO_OUTPUT"
         ;;
 
     dp2)
-        wf-recorder -a -o DP-2 -f "$OUTPUT"
+        wf-recorder -o DP-2 -f "$VIDEO_OUTPUT"
         ;;
 
     area)
         GEOMETRY="$(slurp)"
 
         if [[ -z "$GEOMETRY" ]]; then
-            notify-send "Screen recording" "Recording cancelled"
+            kill -INT "$AUDIO_PID" 2>/dev/null || true
+            wait "$AUDIO_PID" 2>/dev/null || true
+
+            rm -f "$AUDIO_OUTPUT"
+            rm -f "$STATE_FILE"
+
             exit 0
         fi
 
-        wf-recorder -a -g "$GEOMETRY" -f "$OUTPUT"
+        wf-recorder -g "$GEOMETRY" -f "$VIDEO_OUTPUT"
         ;;
 
     *)
         echo "Usage: $0 {screen|dp1|dp2|area}"
+
+        kill -INT "$AUDIO_PID" 2>/dev/null || true
+        wait "$AUDIO_PID" 2>/dev/null || true
+
+        rm -f "$AUDIO_OUTPUT"
+        rm -f "$STATE_FILE"
+
         exit 1
         ;;
 esac
-
-notify-send "Screen recording" "Recording saved to $OUTPUT"
