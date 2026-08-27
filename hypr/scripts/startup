@@ -27,3 +27,11 @@ fi
 sleep 1
 
 $HOME/.config/hypr/scripts/wallpaper &
+
+# ─────────────────────────────
+# QUICKSHELL DOCK
+# ─────────────────────────────
+
+sleep 1
+
+qs -c dock

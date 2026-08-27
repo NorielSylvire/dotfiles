@@ -3,6 +3,7 @@
 - [x] **Git** 🐙
 - [x] **ripgrep** 🔍
 - [x] **fd** 📂
+- [x] zoxide 📂
 - [x] **fzf** 🔄
 - [x] **bat** 📝
 - [x] **eza** 📜

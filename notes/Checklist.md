@@ -58,6 +58,7 @@
 - [x] Choose a **GTK font** 🔤
 - [x] Select a **cursor theme** 🖱️
 - [x] Set **dark/light preference** 🌙☀️
+- [x] added a dock at the bottom with buttons to open apps
 
 ### Qt 🖥️
 - [x] Choose a **Qt theme** 🎨

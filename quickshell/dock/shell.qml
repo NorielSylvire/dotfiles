@@ -56,6 +56,9 @@ ShellRoot {
         }
     }
 
+    /*
+     * Bottom-edge hotspots
+     */
     Variants {
         model: Quickshell.screens
 
@@ -95,6 +98,9 @@ ShellRoot {
         }
     }
 
+    /*
+     * Dock
+     */
     Variants {
         model: Quickshell.screens
 
@@ -114,9 +120,38 @@ ShellRoot {
 
                 visible: dockVisible && activeScreen === modelData
 
+                /*
+                 * Entire dock hover area.
+                 *
+                 * This MouseArea sits above the background,
+                 * but below the buttons.
+                 */
+                MouseArea {
+                    id: dockHover
+
+                    anchors.fill: parent
+                    hoverEnabled: true
+
+                    z: 1
+
+                    onEntered: {
+                        mouseOverDock = true
+                        hideTimer.stop()
+                    }
+
+                    onExited: {
+                        mouseOverDock = false
+                        hideTimer.restart()
+                    }
+                }
+
                 Rectangle {
+                    id: dockBackground
+
                     anchors.fill: parent
                     anchors.margins: 4
+
+                    z: 0
 
                     color: "#09070b"
                     radius: 12
@@ -143,81 +178,77 @@ ShellRoot {
 
                         color: "#4a1020"
                     }
+                }
 
-                    Row {
-                        anchors.centerIn: parent
-                        spacing: 12
+                Row {
+                    anchors.centerIn: parent
 
-                        Repeater {
-                            model: apps
+                    spacing: 12
 
-                            delegate: Rectangle {
-                                width: 52
-                                height: 52
+                    z: 2
 
-                                radius: 8
+                    Repeater {
+                        model: apps
 
-                                color: "transparent"
+                        delegate: Rectangle {
+                            width: 52
+                            height: 52
 
-                                Text {
-                                    anchors.centerIn: parent
+                            radius: 8
 
-                                    text: modelData.icon
+                            color: "transparent"
 
-                                    color: "#e8d9dd"
+                            z: 2
 
-                                    font.pixelSize: 28
+                            Text {
+                                anchors.centerIn: parent
+
+                                text: modelData.icon
+
+                                color: "#e8d9dd"
+
+                                font.pixelSize: 28
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+
+                                hoverEnabled: true
+
+                                acceptedButtons:
+                                    Qt.LeftButton | Qt.RightButton
+
+                                onEntered: {
+                                    parent.color = "#35101a"
+
+                                    mouseOverDock = true
+                                    hideTimer.stop()
                                 }
 
-                                MouseArea {
-                                    anchors.fill: parent
+                                onExited: {
+                                    parent.color = "transparent"
 
-                                    hoverEnabled: true
+                                    mouseOverDock = false
+                                    hideTimer.restart()
+                                }
 
-                                    acceptedButtons: Qt.LeftButton | Qt.RightButton
+                                onClicked: {
+                                    if (mouse.button === Qt.RightButton) {
+                                        console.log("Cycling:", modelData.name)
 
-                                    onEntered: {
-                                        parent.color = "#35101a"
-                                    }
+                                        Quickshell.execDetached([
+                                            "/home/liveuser/.config/quickshell/dock/cycle-app.sh",
+                                            modelData.className
+                                        ])
+                                    } else {
+                                        console.log("Launching:", modelData.name)
 
-                                    onExited: {
-                                        parent.color = "transparent"
-                                    }
-
-                                    onClicked: {
-                                        if (mouse.button === Qt.RightButton) {
-                                            console.log("Cycling:", modelData.name)
-
-                                            Quickshell.execDetached([
-                                                "/home/liveuser/.config/quickshell/dock/cycle-app.sh",
-                                                modelData.className
-                                            ])
-                                        } else {
-                                            console.log("Launching:", modelData.name)
-
-                                            Quickshell.execDetached(modelData.command)
-                                        }
+                                        Quickshell.execDetached(
+                                            modelData.command
+                                        )
                                     }
                                 }
                             }
-                        }
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-
-                        hoverEnabled: true
-
-                        z: -1
-
-                        onEntered: {
-                            mouseOverDock = true
-                            hideTimer.stop()
-                        }
-
-                        onExited: {
-                            mouseOverDock = false
-                            hideTimer.restart()
                         }
                     }
                 }

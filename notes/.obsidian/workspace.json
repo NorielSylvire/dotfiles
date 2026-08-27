@@ -221,15 +221,15 @@
     "Lua/P10 Checklist.md",
     "Python/P9 Checklist.md",
     "Neovim/P8 Checklist.md",
+    "Checklist.md",
     "Zsh/P7 Checklist.md",
     "Zsh/P6 Checklist.md",
     "Kitty/P5 Checklist.md",
-    "Corol design language.md",
-    "README.md",
     "Rofi/P4 Checklist.md",
     "Waybar/P3 Checklist.md",
-    "Checklist.md",
     "Wayland/P2 Checklist.md",
-    "Hyprland/P1 Checklist.md"
+    "Hyprland/P1 Checklist.md",
+    "Corol design language.md",
+    "README.md"
   ]
 }
