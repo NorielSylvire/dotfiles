@@ -11,26 +11,34 @@ mkdir -p "$RECORDING_DIR"
 # If wf-recorder is already running, stop it.
 if pgrep -x wf-recorder >/dev/null; then
     pkill -INT -x wf-recorder
+
+    notify-send "Screen recording" "Recording stopped"
     exit 0
 fi
 
 # Start recording.
 case "${1:-screen}" in
     screen)
-        wf-recorder -f "$OUTPUT"
+        wf-recorder -a -f "$OUTPUT"
         ;;
 
     dp1)
-        wf-recorder -o DP-1 -f "$OUTPUT"
+        wf-recorder -a -o DP-1 -f "$OUTPUT"
         ;;
 
     dp2)
-        wf-recorder -o DP-2 -f "$OUTPUT"
+        wf-recorder -a -o DP-2 -f "$OUTPUT"
         ;;
 
     area)
         GEOMETRY="$(slurp)"
-        wf-recorder -g "$GEOMETRY" -f "$OUTPUT"
+
+        if [[ -z "$GEOMETRY" ]]; then
+            notify-send "Screen recording" "Recording cancelled"
+            exit 0
+        fi
+
+        wf-recorder -a -g "$GEOMETRY" -f "$OUTPUT"
         ;;
 
     *)
@@ -38,3 +46,5 @@ case "${1:-screen}" in
         exit 1
         ;;
 esac
+
+notify-send "Screen recording" "Recording saved to $OUTPUT"
