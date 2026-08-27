@@ -129,4 +129,18 @@ hl.window_rule({
     float = true,
 })
 
+-----------------------------
+--- THUNAR RENAME FLOATING --
+-----------------------------
 
+
+hl.window_rule({
+    name = "rename-floating",
+
+    match = {
+        class = "^thunar$",
+        title = "^Rename.*$",
+    },
+
+    float = true,
+})
