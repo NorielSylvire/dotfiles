@@ -6,6 +6,8 @@ ShellRoot {
     property var activeScreen: null
     property bool mouseOverDock: false
 
+    property int dockWidth: 360
+    property int dockHeight: 80
     property int hotspotHeight: 30
     property int hideDelay: 400
 
@@ -57,7 +59,12 @@ ShellRoot {
     }
 
     /*
-     * Bottom-edge hotspots
+     * One PanelWindow per screen.
+     *
+     * The window itself spans the screen horizontally, but its
+     * input mask only covers the centered dock/hotspot area.
+     *
+     * Therefore the rest of the screen remains click-through.
      */
     Variants {
         model: Quickshell.screens
@@ -68,97 +75,147 @@ ShellRoot {
 
                 screen: modelData
 
-                anchors.bottom: true
-
-                implicitWidth: modelData.width
-                implicitHeight: hotspotHeight
-
-                exclusiveZone: 0
-                color: "transparent"
-
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-
-                    onEntered: {
-                        activeScreen = modelData
-                        dockVisible = true
-                        hideTimer.stop()
-
-                        console.log("Dock hotspot:", modelData.name)
-                    }
-
-                    onExited: {
-                        if (!mouseOverDock) {
-                            hideTimer.restart()
-                        }
-                    }
+                anchors {
+                    bottom: true
+                    left: true
+                    right: true
                 }
-            }
-        }
-    }
 
-    /*
-     * Dock
-     */
-    Variants {
-        model: Quickshell.screens
-
-        delegate: Component {
-            PanelWindow {
-                required property var modelData
-
-                screen: modelData
-
-                anchors.bottom: true
-
-                implicitWidth: 360
-                implicitHeight: 80
+                implicitHeight: dockHeight + hotspotHeight
 
                 exclusiveZone: 0
                 color: "transparent"
-
-                visible: dockVisible && activeScreen === modelData
 
                 /*
-                 * Entire dock hover area.
+                 * Only this region receives mouse input.
                  *
-                 * This MouseArea sits above the background,
-                 * but below the buttons.
+                 * When the dock is hidden:
+                 *
+                 *     [ hotspot ]
+                 *
+                 * When the dock is visible:
+                 *
+                 *     [   dock   ]
+                 *     [ hotspot ]
+                 *
+                 * Everything outside this region passes through
+                 * to the application underneath.
+                 */
+                Item {
+                    id: inputRegion
+
+                    width: dockWidth
+
+                    height: dockVisible &&
+                            activeScreen === modelData
+                            ? dockHeight + hotspotHeight
+                            : hotspotHeight
+
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                mask: Region {
+                    item: inputRegion
+                }
+
+                /*
+                 * Center-bottom hotspot.
+                 *
+                 * This is only 360px wide and 30px high.
                  */
                 MouseArea {
-                    id: dockHover
+                    id: hotspot
 
-                    anchors.fill: parent
+                    width: dockWidth
+                    height: hotspotHeight
+
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+
                     hoverEnabled: true
 
                     z: 1
 
                     onEntered: {
+                        activeScreen = modelData
+                        dockVisible = true
+
                         mouseOverDock = true
                         hideTimer.stop()
+
+                        console.log(
+                            "Dock hotspot:",
+                            modelData.name
+                        )
                     }
 
                     onExited: {
-                        mouseOverDock = false
-                        hideTimer.restart()
+                        /*
+                         * Moving upward into the dock is NOT
+                         * considered leaving the dock.
+                         *
+                         * Give the dock's HoverHandler a chance
+                         * to take over.
+                         */
+                        if (!mouseOverDock) {
+                            hideTimer.restart()
+                        }
                     }
                 }
 
+                /*
+                 * Dock
+                 */
                 Rectangle {
-                    id: dockBackground
+                    id: dock
 
-                    anchors.fill: parent
-                    anchors.margins: 4
+                    width: dockWidth
+                    height: dockHeight
 
-                    z: 0
+                    anchors.bottom: hotspot.top
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    visible: dockVisible &&
+                             activeScreen === modelData
 
                     color: "#09070b"
+
                     radius: 12
 
                     border.width: 1
                     border.color: "#8b1e35"
 
+                    z: 2
+
+                    /*
+                     * HoverHandler tracks the entire dock without
+                     * stealing mouse clicks from the buttons.
+                     *
+                     * This is the important difference from the
+                     * previous MouseArea-based solution.
+                     */
+                    HoverHandler {
+                        id: dockHover
+
+                        onHoveredChanged: {
+                            if (hovered) {
+                                mouseOverDock = true
+                                hideTimer.stop()
+
+                                console.log("Mouse entered dock")
+                            } else {
+                                mouseOverDock = false
+                                hideTimer.restart()
+
+                                console.log("Mouse left dock")
+                            }
+                        }
+                    }
+
+                    /*
+                     * Top accent
+                     */
                     Rectangle {
                         anchors.left: parent.left
                         anchors.right: parent.right
@@ -167,8 +224,13 @@ ShellRoot {
                         height: 2
 
                         color: "#c21f43"
+
+                        z: 0
                     }
 
+                    /*
+                     * Bottom accent
+                     */
                     Rectangle {
                         anchors.left: parent.left
                         anchors.right: parent.right
@@ -177,75 +239,93 @@ ShellRoot {
                         height: 2
 
                         color: "#4a1020"
+
+                        z: 0
                     }
-                }
 
-                Row {
-                    anchors.centerIn: parent
+                    /*
+                     * Application buttons
+                     */
+                    Row {
+                        anchors.centerIn: parent
 
-                    spacing: 12
+                        spacing: 12
 
-                    z: 2
+                        z: 10
 
-                    Repeater {
-                        model: apps
+                        Repeater {
+                            model: apps
 
-                        delegate: Rectangle {
-                            width: 52
-                            height: 52
+                            delegate: Rectangle {
+                                width: 52
+                                height: 52
 
-                            radius: 8
+                                radius: 8
 
-                            color: "transparent"
+                                color: "transparent"
 
-                            z: 2
+                                z: 10
 
-                            Text {
-                                anchors.centerIn: parent
+                                Text {
+                                    anchors.centerIn: parent
 
-                                text: modelData.icon
+                                    text: modelData.icon
 
-                                color: "#e8d9dd"
+                                    color: "#e8d9dd"
 
-                                font.pixelSize: 28
-                            }
-
-                            MouseArea {
-                                anchors.fill: parent
-
-                                hoverEnabled: true
-
-                                acceptedButtons:
-                                    Qt.LeftButton | Qt.RightButton
-
-                                onEntered: {
-                                    parent.color = "#35101a"
-
-                                    mouseOverDock = true
-                                    hideTimer.stop()
+                                    font.pixelSize: 28
                                 }
 
-                                onExited: {
-                                    parent.color = "transparent"
+                                MouseArea {
+                                    anchors.fill: parent
 
-                                    mouseOverDock = false
-                                    hideTimer.restart()
-                                }
+                                    hoverEnabled: true
 
-                                onClicked: {
-                                    if (mouse.button === Qt.RightButton) {
-                                        console.log("Cycling:", modelData.name)
+                                    acceptedButtons:
+                                        Qt.LeftButton |
+                                        Qt.RightButton
 
-                                        Quickshell.execDetached([
-                                            "/home/liveuser/.config/quickshell/dock/cycle-app.sh",
-                                            modelData.className
-                                        ])
-                                    } else {
-                                        console.log("Launching:", modelData.name)
+                                    onEntered: {
+                                        parent.color = "#35101a"
 
-                                        Quickshell.execDetached(
-                                            modelData.command
-                                        )
+                                        /*
+                                         * HoverHandler on the dock
+                                         * already keeps the dock alive.
+                                         *
+                                         * We only cancel the timer here
+                                         * for extra safety.
+                                         */
+                                        hideTimer.stop()
+                                    }
+
+                                    onExited: {
+                                        parent.color = "transparent"
+                                    }
+
+                                    onClicked: {
+                                        if (
+                                            mouse.button ===
+                                            Qt.RightButton
+                                        ) {
+                                            console.log(
+                                                "Cycling:",
+                                                modelData.name
+                                            )
+
+                                            Quickshell.execDetached([
+                                                "/home/liveuser/.config/quickshell/dock/cycle-app.sh",
+                                                modelData.className
+                                            ])
+                                        } else {
+                                            console.log(
+                                                "Launching:",
+                                                modelData.name
+                                            )
+
+                                            Quickshell.execDetached(
+                                                modelData.command
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -256,4 +336,3 @@ ShellRoot {
         }
     }
 }
-
