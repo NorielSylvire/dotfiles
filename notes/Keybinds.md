@@ -7,10 +7,10 @@
 
 ## 🖥️ Programs
 
-| Keybind | Action |
-|---|---|
-| `Super + Q` | Open terminal |
-| `Super + E` | Open file manager |
+| Keybind     | Action                                 |
+| ----------- | -------------------------------------- |
+| `Super + Q` | Open terminal                          |
+| `Super + E` | Open file manager                      |
 | `Super + T` | Open Kitty with `kitty-floating` class |
 
 ---

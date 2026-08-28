@@ -290,7 +290,9 @@
 
     "modules-center": [],
 
-	"modules-right": [],
+	"modules-right": [
+		"clock"
+	],
 
 	// ─────────────────────────────
     // APPLICATION LAUNCHER
@@ -335,6 +337,16 @@
 
 	    "tooltip": true,
 	    "tooltip-format": "Workspace {name}"
-	}
+	},
+
+	// ─────────────────────────────
+    // CLOCK
+    // ─────────────────────────────
+
+    "clock": {
+        "format": "{:%a %H:%M}",
+        "tooltip": true,
+        "tooltip-format": "{:%A, %d %B %Y}"
+    }
 }
 ]
