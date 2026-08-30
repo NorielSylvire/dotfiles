@@ -109,6 +109,20 @@ for i = 1, 10 do
     )
 end
 
+for i = 11, 20 do
+	local key = i % 10
+
+	hl.bind(
+		mainMod .. " + CTRL + " .. key,
+		hl.dsp.focus({ workspace = i })
+	)
+
+	hl.bind(
+		mainMod .. " + SHIFT + CTRL + " .. key,
+		hl.dsp.window.move({ workspace = i })
+	)
+end
+
 
 --------------------
 ---- SCRATCHPAD ----
