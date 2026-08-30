@@ -3,7 +3,7 @@
 # ═══════════════════════════════════════════════════════════════
 
 # User binaries
-export PATH="$HOME/bin:$HOME/.config/hypr/scripts/:$HOME/.config/waybar/scripts/:$HOME/dotfiles/scripts/:$HOME/.local/share/gem/ruby/3.4.0/bin:$HOME/.tmuxifier/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.config/hypr/scripts/:$HOME/.config/waybar/scripts/:$HOME/dotfiles/scripts/:$HOME/.local/share/gem/ruby/3.4.0/bin:$HOME/.tmuxifier/bin:$HOME/.local/npm/bin:$PATH"
 
 # User C/C++ headers and libraries
 export C_INCLUDE_PATH="${HOME}/include:"
